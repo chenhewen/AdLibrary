@@ -1,0 +1,12 @@
+<manifest package="com.robust.adsource"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2864176241475215~2534303151"/>
+    </application>
+
+</manifest>
