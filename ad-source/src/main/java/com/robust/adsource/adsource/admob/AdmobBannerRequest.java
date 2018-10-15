@@ -37,7 +37,7 @@ public class AdmobBannerRequest extends AdmobRequestBase<AdView> implements IAdR
         adView.setAdUnitId(sourceId);
         AdListener listener = createListener(position, adType, adView);
         adView.setAdListener(listener);
-        addShowListenerCompat(adView, listener);
+//        addShowListenerCompat(adView, listener);
 
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
