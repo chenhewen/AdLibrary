@@ -75,6 +75,11 @@ public class ComposedAdLoader {
             }
 
             @Override
+            public void onImpression(Object object) {
+                absAdLoader.notifyAdImpression(position, object);
+            }
+
+            @Override
             public void onClicked(Object object) {
                 absAdLoader.notifyAdClick(position, object);
             }
