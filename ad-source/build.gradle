@@ -39,7 +39,7 @@ ext {
     libraryName = "ad-source"
     publishedGroupId = "com.robust"
     artifact = "ad-source"
-    libraryVersion = "1.0.22"
+    libraryVersion = "1.0.25"
 
     libraryDescription = "Ad source library"
     siteUrl = "https://github.com/chenhewen/AdLibrary"

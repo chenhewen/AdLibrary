@@ -18,11 +18,11 @@ public abstract class AdmobRequestBase<T> implements IAdRequest {
         return mAdmobBannerRequestListener;
     }
 
-    protected AdListener createListener(int position, AdType adType, Object ad) {
+    protected AdmobUniListener createListener(int position, AdType adType, Object ad) {
         return new AdmobUniListener(position, adType, ad);
     }
 
-    private class AdmobUniListener extends AdListener {
+    public class AdmobUniListener extends AdListener {
 
         private int mPosition;
 
@@ -55,13 +55,22 @@ public abstract class AdmobRequestBase<T> implements IAdRequest {
             }
         }
 
-        @Override
-        public void onAdOpened() {
+        // 由于admob banner广告展示没有回掉，我们自己处理
+        public void onAdImpression() {
             // Code to be executed when the ad is displayed.
             if (getAdmobBannerRequestListener() != null) {
                 getAdmobBannerRequestListener().onAdShown();
                 // 统计
                 AdReport.adImpression(mPosition, mAdType);
+            }
+        }
+
+        @Override
+        public void onAdOpened() {
+            // Code to be executed when the ad is displayed.
+            // 仅仅适用于插屏广告展示
+            if (mAdType == AdType.ADMOB_INTERSTITIAL) {
+                onAdImpression();
             }
         }
 

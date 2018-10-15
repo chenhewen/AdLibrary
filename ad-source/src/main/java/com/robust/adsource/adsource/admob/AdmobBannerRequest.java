@@ -35,9 +35,9 @@ public class AdmobBannerRequest extends AdmobRequestBase<AdView> implements IAdR
         AdSize adSize = getAdSizeByType(mAdType);
         adView.setAdSize(adSize);
         adView.setAdUnitId(sourceId);
-        AdListener listener = createListener(position, adType, adView);
+        AdmobUniListener listener = createListener(position, adType, adView);
         adView.setAdListener(listener);
-//        addShowListenerCompat(adView, listener);
+        addShowListenerCompat(adView, listener);
 
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
@@ -49,12 +49,12 @@ public class AdmobBannerRequest extends AdmobRequestBase<AdView> implements IAdR
      * 弥补admob banner 类型广告展示不回调的问题
      * @param view
      */
-    private void addShowListenerCompat(final View view, final AdListener adListener) {
+    private void addShowListenerCompat(final View view, final AdmobUniListener adListener) {
         final ViewTreeObserver vto = view.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                adListener.onAdOpened();
+                adListener.onAdImpression();
                 view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
