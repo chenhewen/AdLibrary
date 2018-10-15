@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion 27
@@ -28,6 +30,28 @@ android {
         }
     }
 
+}
+
+ext {
+    bintrayRepo = "robust"
+    bintrayName = "AdLibrary"
+
+    libraryName = "analytics"
+    publishedGroupId = "com.robust"
+    artifact = "analytics"
+    libraryVersion = "1.0.22"
+
+    libraryDescription = "Ad source library"
+    siteUrl = "https://github.com/chenhewen/AdLibrary"
+    gitUrl = "https://github.com/chenhewen/AdLibrary.git"
+
+    developerId = 'chenhewen'
+    developerName = 'chenhewen'
+    developerEmail = 'robusttheworld@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
 }
 
 dependencies {
@@ -76,3 +100,6 @@ artifactory {
         }
     }
 }
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

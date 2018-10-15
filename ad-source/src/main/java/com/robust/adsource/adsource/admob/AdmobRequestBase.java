@@ -66,9 +66,10 @@ public abstract class AdmobRequestBase<T> implements IAdRequest {
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         public void onAdLeftApplication() {
             if (getAdmobBannerRequestListener() != null) {
-                getAdmobBannerRequestListener().onAdClick();
+                getAdmobBannerRequestListener().onAdClick((T) mAd);
                 // 统计
                 AdReport.adClick(mPosition, mAdType);
             }

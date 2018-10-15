@@ -75,8 +75,8 @@ public class ComposedAdLoader {
             }
 
             @Override
-            public void onClicked() {
-                absAdLoader.notifyAdClick(position);
+            public void onClicked(Object object) {
+                absAdLoader.notifyAdClick(position, object);
             }
         });
         absAdLoader.load(position, substitution);

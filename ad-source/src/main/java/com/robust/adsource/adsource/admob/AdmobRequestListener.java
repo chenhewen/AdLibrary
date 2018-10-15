@@ -8,5 +8,5 @@ public interface AdmobRequestListener<T> {
 
     void onAdShown();
 
-    void onAdClick();
+    void onAdClick(T ad);
 }

@@ -10,7 +10,9 @@ public interface AdListener {
 
     void onLoadSuccess(Object object);
 
+    void onImpression(Object object);
+
     void onLoadFailed(int errorCode, String errorStr);
 
-    void onClicked();
+    void onClicked(Object object);
 }

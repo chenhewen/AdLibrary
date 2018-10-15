@@ -14,7 +14,7 @@ public interface FbRequestListener<T extends Ad> {
 
     void onAdShow();
 
-    void onAdClicked();
+    void onAdClicked(T ad);
 
     void onMediaDownloaded(T ad);
 

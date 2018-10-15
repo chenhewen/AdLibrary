@@ -8,6 +8,7 @@ import com.robust.adsource.ModuleContext;
 import com.robust.adsource.ad.cache.SinglePosCache;
 import com.robust.adsource.ad.event.OnAdClickEvent;
 import com.robust.adsource.ad.event.OnAdErrorEvent;
+import com.robust.adsource.ad.event.OnAdImpressionEvent;
 import com.robust.adsource.ad.event.OnAdLoadedEvent;
 import com.robust.adsource.adsource.AdType;
 import com.robust.adsource.adsource.IAdRequest;
@@ -69,8 +70,12 @@ public abstract class AbsAdLoader<T> implements IAdLoader{
         mHandler.postDelayed(runnable, millis);
     }
 
+    private UniAd buildUniAd(T t) {
+        return new UniAd(mAdType, t);
+    }
+
     public void notifyLoadSuccess(int position, T t) {
-        UniAd uniAd = new UniAd(mAdType, t);
+        UniAd uniAd = buildUniAd(t);
         EventBus.getDefault().post(new OnAdLoadedEvent(position, uniAd));
     }
 
@@ -78,8 +83,14 @@ public abstract class AbsAdLoader<T> implements IAdLoader{
         EventBus.getDefault().post(new OnAdErrorEvent(position, errorCode, errorStr));
     }
 
-    public void notifyAdClick(int position) {
-        EventBus.getDefault().post(new OnAdClickEvent(position));
+    public void notifyAdClick(int position, T t) {
+        UniAd uniAd = buildUniAd(t);
+        EventBus.getDefault().post(new OnAdClickEvent(position, uniAd));
+    }
+
+    public void notifyAdImpression(int position, T t) {
+        UniAd uniAd = buildUniAd(t);
+        EventBus.getDefault().post(new OnAdImpressionEvent(position, uniAd));
     }
 
 
@@ -173,15 +184,21 @@ public abstract class AbsAdLoader<T> implements IAdLoader{
             return;
         }
 
-        cachePool.remove(position);
-    }
-
-    protected void superOnAdClicked(int position) {
+        T ad = cachePool.remove(position);
         // 事件
         if (isEventMute()) {
-            getAdListener().onClicked();
+            getAdListener().onImpression(ad);
         } else {
-            notifyAdClick(position);
+            notifyAdImpression(position, ad);
+        }
+    }
+
+    protected void superOnAdClicked(int position, T ad) {
+        // 事件
+        if (isEventMute()) {
+            getAdListener().onClicked(ad);
+        } else {
+            notifyAdClick(position, ad);
         }
     }
 

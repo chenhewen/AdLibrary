@@ -59,10 +59,11 @@ public abstract class FbRequestBase<T extends Ad> implements IAdRequest{
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         public void onAdClicked(Ad ad) {
             // Native ad clicked
             if (mFbRequestListener != null) {
-                mFbRequestListener.onAdClicked();
+                mFbRequestListener.onAdClicked((T) ad);
                 // 统计
                 AdReport.adClick(mPosition, mAdType);
             }

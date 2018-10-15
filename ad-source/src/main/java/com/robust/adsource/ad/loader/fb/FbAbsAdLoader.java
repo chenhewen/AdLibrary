@@ -66,8 +66,8 @@ public abstract class FbAbsAdLoader<T extends Ad> extends AbsAdLoader<T> {
             }
 
             @Override
-            public void onAdClicked() {
-                superOnAdClicked(position);
+            public void onAdClicked(T ad) {
+                superOnAdClicked(position, ad);
             }
 
             @Override

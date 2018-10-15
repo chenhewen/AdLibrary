@@ -58,8 +58,8 @@ public abstract class AdmobAbsLoader<T> extends AbsAdLoader<T> {
             }
 
             @Override
-            public void onAdClick() {
-                superOnAdClicked(position);
+            public void onAdClick(T ad) {
+                superOnAdClicked(position, ad);
             }
         });
 

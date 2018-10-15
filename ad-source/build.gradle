@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
 
 
 android {
@@ -30,6 +32,28 @@ android {
 
 }
 
+ext {
+    bintrayRepo = "robust"
+    bintrayName = "AdLibrary"
+
+    libraryName = "ad-source"
+    publishedGroupId = "com.robust"
+    artifact = "ad-source"
+    libraryVersion = "1.0.22"
+
+    libraryDescription = "Ad source library"
+    siteUrl = "https://github.com/chenhewen/AdLibrary"
+    gitUrl = "https://github.com/chenhewen/AdLibrary.git"
+
+    developerId = 'chenhewen'
+    developerName = 'chenhewen'
+    developerEmail = 'robusttheworld@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     api 'com.facebook.android:audience-network-sdk:4.99.1'
@@ -49,6 +73,18 @@ publishing {
 
             // Tell maven to prepare the generated "*.aar" file for publishing
             artifact("$buildDir/outputs/aar/ad-source-release.aar")
+        }
+    }
+
+    repositories {
+        maven {
+            name 'Bintray'
+            url "https://dl.bintray.com/chenhewen/robust/AdLibrary"
+
+            credentials {
+                username = bintrayUsername
+                password = bintrayApiKey
+            }
         }
     }
 }
@@ -82,3 +118,6 @@ artifactory {
         }
     }
 }
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
